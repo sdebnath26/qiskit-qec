@@ -112,15 +112,15 @@ class TestSurfaceCodeBuilder(unittest.TestCase):
         self.assertTrue(hasattr(code, "gauge_group"))
 
     def test_d3_qubit_count(self):
-        """d=3 surface code has n=d^2 = 9 data qubits."""
+        """d=3 surface code has n = d² + (d-1)² = 13 physical qubits."""
         code = SurfaceCodeBuilder(d=3).build()
-        # n is stored on the code object directly from gauge_group
-        self.assertEqual(code._n, 3 * 3)
+        # Non-rotated surface code: data qubits (d²) + ancilla qubits ((d-1)²)
+        self.assertEqual(code._n, 3 ** 2 + 2 ** 2)
 
     def test_d5_qubit_count(self):
-        """d=5 surface code has n=d^2 = 25 data qubits."""
+        """d=5 surface code has n = d² + (d-1)² = 41 physical qubits."""
         code = SurfaceCodeBuilder(d=5).build()
-        self.assertEqual(code._n, 5 * 5)
+        self.assertEqual(code._n, 5 ** 2 + 4 ** 2)
 
     def test_ul_op_sets_optype_Z(self):
         """ul_op=Z sets optype to 'pZXZX'."""
